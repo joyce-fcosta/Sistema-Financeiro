@@ -12,7 +12,7 @@ namespace Entities.Entidades
         
         [ForeignKey("SistemaFinanceiro")]
         [Column(Order =1)]
-        public bool IdSistema{ get; set; }
+        public int IdSistema{ get; set; }
         public virtual SistemaFinanceiro Sistema { get; set; }
     }
 }

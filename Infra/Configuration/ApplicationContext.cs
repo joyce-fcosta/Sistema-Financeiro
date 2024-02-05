@@ -9,16 +9,15 @@ namespace Infra.Configuration
     {
         private readonly IConfiguration _configuration;
 
-        public ApplicationContext(DbContextOptions options, IConfiguration configuration) : base(options)
+        public ApplicationContext(DbContextOptions options) : base(options)
         {
-            configuration = _configuration;
 
         }
 
         public DbSet<Despesa> Despesas { get; set; }
         public DbSet<Categoria> Categoria { get; set; }
         public DbSet<UsuarioSistemaFinanceiro> UsuarioSistemaFinanceiro { get; set; }
-        public DbSet<SistemaFinanceiro> SistemaFinceiro{ get; set; }
+        public DbSet<SistemaFinanceiro> SistemaFinceiro { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
