@@ -6,6 +6,8 @@ using Domain.Interfaces.Generics;
 using Infra.Repository.Generics;
 using Domain.Interfaces;
 using Infra.Repository;
+using Domain.Interfaces.Services;
+using Domain.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,11 +21,18 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ApplicationContext>(option => option.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer")));
 builder.Services.AddDefaultIdentity<ApplicationUser>(option => option.SignIn.RequireConfirmedAccount = true);
 
+//Repository
 builder.Services.AddSingleton(typeof(IGenerics<>), typeof(GenericsRepository<>));
 builder.Services.AddSingleton<ICategoria, CategoriaRepository>();
 builder.Services.AddSingleton<IDespesa, DespesaRepository>();
 builder.Services.AddSingleton<ISistemaFinanceiro, SistemaFinanceiroRepository>();
 builder.Services.AddSingleton<IUsuarioSistemaFinanceiro, UsuarioSistemaFinanceiroRepository>();
+
+//Services
+builder.Services.AddSingleton<ICategoriaService, CategoriaService>();
+builder.Services.AddSingleton<IDespesaService, DespesaService>();
+builder.Services.AddSingleton<IUsuarioSistemaFinanceiroService, UsuarioSistemaFinanceiroService>();
+builder.Services.AddSingleton<ISistemaFinanceiroService, SistemaFinanceiroService>();
 
 var app = builder.Build();
 
