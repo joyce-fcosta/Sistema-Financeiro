@@ -5,7 +5,7 @@ using Entities.Entidades;
 
 namespace Infra.Configuration
 {
-    public class ApplicationContext : IdentityDbContext
+    public class ApplicationContext : IdentityDbContext<ApplicationUser>
     {
         private readonly IConfiguration _configuration;
 
