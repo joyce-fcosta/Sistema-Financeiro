@@ -1,11 +1,14 @@
 ﻿using Domain.Interfaces;
 using Domain.Interfaces.Services;
 using Entities.Entidades;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Identity.Client;
 
 namespace WebApi.Controllers
 {
+	[Route("api/[controller]")]
+	[Authorize]
 	public class SistemaFinanceirosController : Controller
 	{
 		private readonly ISistemaFinanceiro _ISistemaFinanceiro;
@@ -44,7 +47,7 @@ namespace WebApi.Controllers
 
 		[HttpPost("/api/AdicionaSistemFinanceiro")]
 		[Produces("application/json")]
-		public async Task<object> AdicionaSistemFinanceiro(SistemaFinanceiro sistemaFinanceiro)
+		public async Task<object> AdicionaSistemFinanceiro([FromBody] SistemaFinanceiro sistemaFinanceiro)
 		{
 			await _ISistemaFinanceiroService.AdicionarSistemaFinanceiro(sistemaFinanceiro);
 

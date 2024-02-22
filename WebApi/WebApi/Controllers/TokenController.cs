@@ -31,8 +31,6 @@ namespace WebApi.Controllers
 				return Unauthorized();// retorna não autorizado
 			}
 
-
-
 			var result = await _signInManager.PasswordSignInAsync(input.Email, input.Password, false, lockoutOnFailure: true);
 
 			if (result.Succeeded)
@@ -48,6 +46,22 @@ namespace WebApi.Controllers
 
 				return Ok(token.value);
 			}
+
+			return Unauthorized();
+
+		}
+		
+		[AllowAnonymous]
+		[Produces("application/json")]
+		[HttpPost("/api/CreateToken")]
+		public async Task<IActionResult> RefreshToken([FromBody] TokenModel tokenModel)
+		{
+			if (string.IsNullOrWhiteSpace(tokenModel.AccessToken) || string.IsNullOrWhiteSpace(tokenModel.RefreshToken))
+			{
+				return Unauthorized();// retorna não autorizado
+			}
+
+
 
 			return Unauthorized();
 

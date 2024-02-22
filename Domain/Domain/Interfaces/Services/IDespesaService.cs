@@ -2,10 +2,11 @@
 
 namespace Domain.Interfaces.Services
 {
-    public interface IDespesaService
-    {
-        Task AdicionarDespesa(Despesa despesa);
-        Task AtualizarDespesa(Despesa despesa);
+	public interface IDespesaService
+	{
+		Task AdicionarDespesa(Despesa despesa);
+		Task AtualizarDespesa(Despesa despesa);
+		Task<object> CarregarGraficos(string emailUsuario);
 
-    }
+	}
 }

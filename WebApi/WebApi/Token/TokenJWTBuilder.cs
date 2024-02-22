@@ -1,6 +1,8 @@
 ﻿using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace WebApi.Token
 {
@@ -11,7 +13,7 @@ namespace WebApi.Token
 		private string issuer = ""; //Remetente
 		private string audience = ""; //O token do receptor
 		private Dictionary<string, string> claims = new Dictionary<string, string>();// quando os tokens forem gerados vão ser dado ao usuário que vai acessar, onde vão estar  definidos nos controllers
-		private int expiryInMinutes = 5; //Tempo de expiração
+		private int expiryInMinutes = 10; //Tempo de expiração
 
 		public TokenJWTBuilder AddSubject(string subject)
 		{
