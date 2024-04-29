@@ -2,13 +2,14 @@
 using Domain.Interfaces.Services;
 using Entities.Entidades;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Identity.Client;
 
 namespace WebApi.Controllers
 {
 	[Route("api/[controller]")]
-	[Authorize]
+	[Authorize(Roles ="Usuario") ]
 	public class SistemaFinanceirosController : Controller
 	{
 		private readonly ISistemaFinanceiro _ISistemaFinanceiro;

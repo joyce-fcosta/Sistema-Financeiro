@@ -50,20 +50,41 @@ namespace WebApi.Controllers
 			return Unauthorized();
 
 		}
-		
+
 		[AllowAnonymous]
 		[Produces("application/json")]
 		[HttpPost("/api/CreateToken")]
-		public async Task<IActionResult> RefreshToken([FromBody] TokenModel tokenModel)
+		public async Task<IActionResult> RefreshToken(string id)
 		{
-			if (string.IsNullOrWhiteSpace(tokenModel.AccessToken) || string.IsNullOrWhiteSpace(tokenModel.RefreshToken))
+			var usuario = _userManager.FindByIdAsync(id);
+
+			/*			var dataExpiracaoAcessToken = DateTime.Now.AddMinutes(5);
+						var dataExpiracaoRefreshToken = DateTime.Now.AddMinutes(30);*/
+
+
+			var acessToken = new TokenJWTBuilder()
+					.AddSecurityKey(JwtSecurityKey.Create("this is my custom Secret key for authentication"))
+					.AddSubject("Sistema Financeiro")
+					.AddIssuer("Teste.Security.Bearer")
+					.AddAudience("Teste.Security.Bearer")
+					.AddClaims("UsuarioAPINumero", "1")
+					.AddExpiryInMinutes(2)
+					.Builder();
+
+			var refreshToken = new TokenJWTBuilder()
+					.AddSecurityKey(JwtSecurityKey.Create("this is my custom Secret key for authentication"))
+					.AddSubject("Sistema Financeiro")
+					.AddIssuer("Teste.Security.Bearer")
+					.AddAudience("Teste.Security.Bearer")
+					.AddExpiryInMinutes(30)
+					.Builder();
+			var retorno = new TokenModel
 			{
-				return Unauthorized();// retorna não autorizado
-			}
+				AccessToken = acessToken.value,
+				RefreshToken = refreshToken.value
+			};
 
-
-
-			return Unauthorized();
+			return Ok(retorno);
 
 		}
 	}
